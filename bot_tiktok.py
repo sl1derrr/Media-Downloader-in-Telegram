@@ -10,14 +10,14 @@ from aiogram.utils.markdown import hbold
 import bot_tiktok_database as database
 from aiogram.client.bot import DefaultBotProperties
 2
-TOKEN = "7391245181:AAFgLQEqrb4iVukDyjyJ1kpFHZRXIxv8YkU"
+TOKEN = "XXXXXXXXXXX" // Add your token from BotFather
 
 dp = Dispatcher()
 
-database.create_table_users()
+database.create_table_users() 
 database.create_table_convertations()
 
-class LinkFilter(Filter):
+class LinkFilter(Filter): // Just simple check of link
     async def __call__(self, message: Message) -> bool:
         return message.text.startswith("http")
 
@@ -26,12 +26,12 @@ async def link_handler(message: Message) -> None:
     link = message.text
 
     msg = await message.answer("Пожалуйста, подождите, запрос обрабатывается")
-    url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
+    url = "https://tiktok-video-no-watermark2.p.rapidapi.com/" 
 
     querystring = {"url":link, "hd": "1"}
 
     headers = {
-        "X-RapidAPI-Key": "1ea0bfd27dmsh3deb9178d0ea377p1bf47ajsnb78f8cd16d0f",
+        "X-RapidAPI-Key": "XXXXXXXXXXX", // Your RapidApi Key is on RapidAPI site
         "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"
     }
 
@@ -54,7 +54,7 @@ async def command_start_handler(message: Message) -> None:
         f"Привет, {hbold(message.from_user.full_name)}!\nЭто загрузчик видео из тиктока без водяного знака.\nПросто отправь мне ссылку на видео.")
     database.add_user(message.from_user.id, message.from_user.username)
 
-@dp.message(Command('28092000'))
+@dp.message(Command('28092000')) // You can name it like you want. I just typed numbers to take info.txt from it
 async def command_start_handler(message: Message) -> None:
     users = database.get_users()
     convertations = database.get_convertations()
